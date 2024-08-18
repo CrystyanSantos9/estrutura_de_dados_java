@@ -18,6 +18,7 @@ class AlunoTest {
                 .builder ()
                 .build ();
 
+
         assertTrue (aluno1.equals (aluno2));
 
     }

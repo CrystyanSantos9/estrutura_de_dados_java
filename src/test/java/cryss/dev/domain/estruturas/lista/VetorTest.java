@@ -18,8 +18,10 @@ class VetorTest {
         lista.adiciona (a1);
         lista.adiciona (a2);
 
+        System.out.println (lista);
+
         //lembrando que o indice inicial é 0 logo o centesimo elemento é 99
-        assertEquals (lista.pega (98).getNome (), a2.getNome ());
+        assertEquals (lista.pega (1).getNome (), a2.getNome ());
     }
 
     @Test
@@ -30,10 +32,11 @@ class VetorTest {
         Vetor lista = new Vetor ();
 
         lista.adiciona (a1);
-        lista.adiciona (98, a2);
+        lista.adiciona (1, a2);
+        lista.adiciona (3, a2);
 
         //lembrando que o indice inicial é 0 logo o centesimo elemento é 99
-        assertEquals (lista.pega (98).getNome (), a2.getNome ());
+        assertEquals (lista.pega (1).getNome (), a2.getNome ());
     }
 
     @Test
@@ -50,7 +53,7 @@ class VetorTest {
 
         //lembrando que o indice inicial é 0 logo o centesimo elemento é 99
         assertEquals (lista.pega (98).getNome (), a2.getNome ());
-        assertEquals (lista.pega (97).getNome (), a1.getNome ());
+        assertEquals (lista.pega (2).getNome (), a1.getNome ());
 
     }
 
@@ -90,6 +93,26 @@ class VetorTest {
 
         //lembrando que o indice inicial é 0 logo o centesimo elemento é 99
         assertTrue (lista.contem (a2));
+
+    }
+
+    @Test
+    void retornaOTamanhoDaLista(){
+        Aluno a1 = Aluno.builder ().nome ("Thiago").build ();
+        Aluno a2 =Aluno.builder ().nome ("Rodolfo").build ();
+        Aluno a3 =Aluno.builder ().build ();
+
+        Vetor lista = new Vetor ();
+
+        lista.adiciona (a1);
+        lista.adiciona (a1);
+        lista.adiciona (a1);
+        lista.adiciona (98, a2);
+
+        lista.remove (97);
+
+        //lembrando que o indice inicial é 0 logo o centesimo elemento é 99
+      assertEquals (3, lista.tamanho ());
 
     }
 }
