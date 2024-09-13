@@ -3,15 +3,18 @@ package cryss.dev.domain.estruturas.lista;
 import cryss.dev.domain.aluno.Aluno;
 import org.apache.commons.lang3.ObjectUtils;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 
-public class Vetor {
+public class VetorGenerico<T extends Aluno> {
     //Declarando e inicializando um array de Aluno com espaco de 100
-    private Aluno[] alunos = new Aluno[100000];
+    private ArrayList<T> alunos = new ArrayList<T> ();
 
     //compactando os dados à esquerda
     private int tamanhoLista = 0;
@@ -25,40 +28,29 @@ public class Vetor {
 //        }
 //    }
 
-    //garante espaço no array
-    private void garataEspaco(){
-        if(this.tamanhoLista == this.alunos.length){
-            Aluno[] novoArray = new Aluno[this.alunos.length * 2];
-            for(int i=0; i<this.alunos.length; i++){
-                novoArray[i] = this.alunos[i];
-            }
-            this.alunos = novoArray;
-        }
-    }
-
 
 //    Estoura out of bounds for length
-    public void adiciona(Aluno aluno){
+    public void adiciona(T aluno){
         if(Objects.nonNull (aluno)){
-                garataEspaco();
-                alunos[tamanhoLista] = aluno;
+                this.alunos.ensureCapacity (this.alunos.size ());
+                alunos.add (aluno);
                 tamanhoLista = tamanhoLista +1;
 
         }
     }
 
 
-    public void adiciona(int pos, Aluno aluno) {
+    public void adiciona(int pos, T aluno) {
         if (!posicaoIsValid (pos)) {
             throw new IllegalArgumentException ("Posição inválida");
         };
 
         for (int i = tamanhoLista - 1; i >= pos; i = i - 1) {
             //desloca elementos da posicao informada para à direita
-            alunos[i + 1] = alunos[i];
+            alunos.add (i+1, alunos.get (i));
         }
 
-        alunos[pos] = aluno;
+        alunos.add (pos, aluno);
         tamanhoLista = tamanhoLista + 1;
     }
 
@@ -66,11 +58,11 @@ public class Vetor {
         return pos >= 0 && pos < this.tamanhoLista;
     }
 
-    public Aluno pega(int posicao){
+    public T pega(int posicao){
         if(!posicaoIsValid(posicao)){
             throw new IllegalArgumentException ("Posição inválida");
         }
-        return alunos[posicao];
+        return alunos.get (posicao);
     }
 
     public void remove(int pos) {
@@ -79,32 +71,40 @@ public class Vetor {
         }
 
         for(int i = pos; i < this.tamanhoLista - 1; i++){
-            this.alunos[i] = null;
-            this.alunos[i] = this.alunos[i+1];
+            this.alunos.remove (i);
+            this.alunos.add (i,  this.alunos.get (i+1));
         }
 
         this.tamanhoLista = tamanhoLista - 1;
 
     }
 
+    public boolean remove(Aluno object){
+       return this.alunos.remove (object);
+    }
+
+    public boolean removeAllOccurrences(Collection<? extends Aluno> object){
+        return this.alunos.removeAll (object);
+    }
+
     private boolean posicaoOcupada(int posicao){
         return posicao < this.tamanhoLista && posicao >=0;
     }
 
-    public boolean contem(Aluno aluno) {
+    public boolean  contem(T  aluno) {
 
         if (Objects.isNull (aluno) && ObjectUtils.isNotEmpty (aluno.getNome ())) {
             return false;
         }
 
-        return Arrays.stream (alunos)
+        return alunos.stream ()
                 .filter (alunoNaLista -> aluno.equals (alunoNaLista))
                 .collect (Collectors.toList ()).size () == 1;
     }
     public int tamanho(){ return tamanhoLista; }
 
     public String toString(){
-        return Stream.of (alunos)
+        return alunos.stream ()
                 .filter (Objects::nonNull)
                 .map (Aluno::toString)
                 .collect(Collectors.joining (",", "[", "]"));

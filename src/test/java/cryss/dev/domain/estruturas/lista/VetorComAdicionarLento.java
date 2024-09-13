@@ -9,41 +9,21 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 
-public class Vetor {
+public class VetorComAdicionarLento {
     //Declarando e inicializando um array de Aluno com espaco de 100
     private Aluno[] alunos = new Aluno[100000];
 
     //compactando os dados à esquerda
     private int tamanhoLista = 0;
 
-//    public void adiciona(Aluno aluno){
-//        if(Objects.nonNull (aluno)){
-//            if(tamanhoLista < alunos.length) {
-//                alunos[tamanhoLista] = aluno;
-//                tamanhoLista = tamanhoLista +1;
-//            }
-//        }
-//    }
-
-    //garante espaço no array
-    private void garataEspaco(){
-        if(this.tamanhoLista == this.alunos.length){
-            Aluno[] novoArray = new Aluno[this.alunos.length * 2];
-            for(int i=0; i<this.alunos.length; i++){
-                novoArray[i] = this.alunos[i];
-            }
-            this.alunos = novoArray;
-        }
-    }
-
-
-//    Estoura out of bounds for length
     public void adiciona(Aluno aluno){
         if(Objects.nonNull (aluno)){
-                garataEspaco();
-                alunos[tamanhoLista] = aluno;
-                tamanhoLista = tamanhoLista +1;
-
+           for(int i=0; i<this.alunos.length; i++){
+               if(this.alunos[i]==null){
+                   this.alunos[i] = aluno;
+                   break;
+               }
+           }
         }
     }
 
@@ -109,8 +89,5 @@ public class Vetor {
                 .map (Aluno::toString)
                 .collect(Collectors.joining (",", "[", "]"));
     }
-
-
-
 
 }

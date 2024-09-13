@@ -1,11 +1,16 @@
 package cryss.dev.domain.estruturas.lista;
 
 import cryss.dev.domain.aluno.Aluno;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
+import org.springframework.boot.autoconfigure.jms.JmsProperties;
+
+import java.time.Period;
+import java.time.temporal.Temporal;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-
+@Slf4j
 class VetorTest {
 
     @Test
@@ -32,8 +37,10 @@ class VetorTest {
         Vetor lista = new Vetor ();
 
         lista.adiciona (a1);
+        lista.adiciona (0, a2);
         lista.adiciona (1, a2);
-        lista.adiciona (3, a2);
+
+        System.out.println (lista.tamanho ());
 
         //lembrando que o indice inicial é 0 logo o centesimo elemento é 99
         assertEquals (lista.pega (1).getNome (), a2.getNome ());
@@ -66,13 +73,13 @@ class VetorTest {
 
         lista.adiciona (a1);
         lista.adiciona (a1);
-        lista.adiciona (a1);
-        lista.adiciona (98, a2);
+        lista.adiciona (a2);
 
-        lista.remove (97);
 
-        //lembrando que o indice inicial é 0 logo o centesimo elemento é 99
-        assertNull (lista.pega (97));
+        lista.remove (0);
+
+        //A2 assume o lugar de a1 na posicao 1
+        assertEquals (a2.getNome (),lista.pega (1).getNome ());
 
     }
 
@@ -115,4 +122,79 @@ class VetorTest {
       assertEquals (3, lista.tamanho ());
 
     }
+
+    @Test
+    void adiciona100milAlunosNoModoLinear(){
+
+        int CEM_MIL = 100000;
+        VetorComAdicionarLento vetorLinear = new VetorComAdicionarLento ();
+
+        long inicio = System.currentTimeMillis ();
+        for(int i=1; i<CEM_MIL; i++){
+            Aluno aluno = Aluno.builder().build();
+            vetorLinear.adiciona (aluno);
+        }
+        long fim =  System.currentTimeMillis ();
+        double tempo = (fim - inicio)/1000.0;
+        log.info ("Tempo em segundos ={}", tempo);
+    }
+
+    @Test
+    void adiciona100milAlunosNoModoConstante(){
+
+        int CEM_MIL = 100000;
+        Vetor vetorConstante= new Vetor ();
+
+        long inicio = System.currentTimeMillis ();
+        for(int i=1; i<CEM_MIL; i++){
+            Aluno aluno = Aluno.builder().build();
+            vetorConstante.adiciona (aluno);
+        }
+        long fim =  System.currentTimeMillis ();
+        double tempo = (fim - inicio)/1000.0;
+        log.info ("Tempo em segundos ={}", tempo);
+        log.info ("Lista pegando posicao ocupada  ={}", vetorConstante.pega (10));
+        log.info ("Lista pegando posicao nao existente", vetorConstante.pega (100000000));
+    }
+
+    @Test
+    void adicionaEstouraEspaco(){
+
+        int CEM_MIL = 100000221;
+        Vetor vetorConstante= new Vetor ();
+
+        long inicio = System.currentTimeMillis ();
+        for(int i=1; i<CEM_MIL; i++){
+            Aluno aluno = Aluno.builder().build();
+            vetorConstante.adiciona (aluno);
+        }
+        long fim =  System.currentTimeMillis ();
+        double tempo = (fim - inicio)/1000.0;
+        log.info ("Tempo em segundos ={}", tempo);
+        log.info ("Lista pegando posicao ocupada  ={}", vetorConstante.pega (10));
+    }
+
+    @Test
+    void adicionaVetorGenericoEstouraEspaco(){
+
+        int CEM_MIL = 100000221;
+        VetorGenerico<Aluno> vetorGenerico= new VetorGenerico ();
+
+        long inicio = System.currentTimeMillis ();
+        for(int i=1; i<CEM_MIL; i++){
+            Aluno aluno = Aluno.builder().nome ("Rafael").build();
+            vetorGenerico.adiciona (aluno);
+        }
+
+        Aluno aluno = Aluno.builder().nome ("Rafael").build();
+
+        vetorGenerico.remove (aluno);
+
+        long fim =  System.currentTimeMillis ();
+        double tempo = (fim - inicio)/1000.0;
+        log.info ("Tempo em segundos ={}", tempo);
+        log.info ("Lista pegando posicao ocupada  ={}", vetorGenerico.pega (10));
+    }
+
+
 }
