@@ -4,48 +4,48 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
-public class ConjuntoEspalhamentoImpl implements ConjuntoEspalhamento {
+public class ConjuntoEspalhamentoImpl <T> implements ConjuntoEspalhamento <T> {
 
-    private List<List<String>> tabela = new ArrayList<List<String>> ();
+    private List<List<T>> tabela = new ArrayList<List<T>> ();
     private int tamanho = 0;
 
     public ConjuntoEspalhamentoImpl() {
         for(int i = 0; i<26; i++){
-            LinkedList<String> lista = new LinkedList<> ();
+            LinkedList<T> lista = new LinkedList<> ();
             tabela.add (lista);
         }
     }
 
     @Override
-    public void adiciona(String palavra) {
+    public void adiciona(T palavra) {
         if (!this.contem (palavra)) {
             int indice = this.calculaIndiceDaTabela (palavra);
-            List<String> lista = this.tabela.get (indice);
+            List<T> lista = this.tabela.get (indice);
             lista.add (palavra);
             this.tamanho = this.tamanho + 1;
         }
     }
 
     @Override
-    public void remove(String palavra) {
+    public void remove(T palavra) {
         if (this.contem (palavra)) {
             int indice = this.calculaIndiceDaTabela (palavra);
-            List<String> lista = this.tabela.get (indice);
+            List<T> lista = this.tabela.get (indice);
             lista.remove (palavra);
             this.tamanho = this.tamanho - 1;
         }
     }
 
     @Override
-    public boolean contem(String palavra) {
+    public boolean contem(T palavra) {
         int indice = this.calculaIndiceDaTabela (palavra);
-        List<String> lista = this.tabela.get (indice);
+        List<T> lista = this.tabela.get (indice);
         return lista.contains (palavra);
     }
 
     @Override
-    public List<String> pegaTodas() {
-        List<String > palavras = new ArrayList<> ();
+    public List<T> pegaTodas() {
+        List<T > palavras = new ArrayList<> ();
 
         for(int i = 0; i< this.tabela.size (); i++){
             palavras.addAll (this.tabela.get (i));
@@ -64,8 +64,8 @@ public class ConjuntoEspalhamentoImpl implements ConjuntoEspalhamento {
 
     }
 
-    private int calculaIndiceDaTabela(String palavra){
-        return palavra.toLowerCase ().charAt (0) % 26;
+    private int calculaIndiceDaTabela(T palavra){
+        return ((String) palavra).toLowerCase ().charAt (0) % 26;
     }
 
 

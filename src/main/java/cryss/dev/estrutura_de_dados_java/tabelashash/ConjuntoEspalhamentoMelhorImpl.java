@@ -4,48 +4,48 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
-public class ConjuntoEspalhamentoMelhorImpl implements ConjuntoEspalhamento {
+public class ConjuntoEspalhamentoMelhorImpl <T> implements ConjuntoEspalhamento <T> {
 
-    private List<List<String>> tabela = new ArrayList<List<String>> ();
+    private List<List<T>> tabela = new ArrayList<List<T>> ();
     private int tamanho = 0;
 
     public ConjuntoEspalhamentoMelhorImpl() {
         for(int i = 0; i<26; i++){
-            LinkedList<String> lista = new LinkedList<> ();
+            LinkedList<T> lista = new LinkedList<> ();
             tabela.add (lista);
         }
     }
 
     @Override
-    public void adiciona(String palavra) {
+    public void adiciona(T palavra) {
         if (!this.contem (palavra)) {
             int indice = this.calculaIndiceDaTabela (palavra);
-            List<String> lista = this.tabela.get (indice);
+            List<T> lista = this.tabela.get (indice);
             lista.add (palavra);
             this.tamanho = this.tamanho + 1;
         }
     }
 
     @Override
-    public void remove(String palavra) {
+    public void remove(T palavra) {
         if (this.contem (palavra)) {
             int indice = this.calculaIndiceDaTabela (palavra);
-            List<String> lista = this.tabela.get (indice);
+            List<T> lista = this.tabela.get (indice);
             lista.remove (palavra);
             this.tamanho = this.tamanho - 1;
         }
     }
 
     @Override
-    public boolean contem(String palavra) {
+    public boolean contem(T palavra) {
         int indice = this.calculaIndiceDaTabela (palavra);
-        List<String> lista = this.tabela.get (indice);
+        List<T> lista = this.tabela.get (indice);
         return lista.contains (palavra);
     }
 
     @Override
-    public List<String> pegaTodas() {
-        List<String > palavras = new ArrayList<> ();
+    public List<T> pegaTodas() {
+        List<T > palavras = new ArrayList<> ();
 
         for(int i = 0; i< this.tabela.size (); i++){
             //no registro zero insira a lista
@@ -62,22 +62,22 @@ public class ConjuntoEspalhamentoMelhorImpl implements ConjuntoEspalhamento {
         return this.tamanho;
     }
 
-    private int calculaCodigoDeEspalhamento(String palavra){
-        int codigo = 1;
-        for(int i = 0; i<palavra.length (); i++){
-            codigo = 31 * codigo + palavra.charAt (i);
-        }
-        return codigo;
-    }
+//    private int calculaCodigoDeEspalhamento(T palavra){
+//        int codigo = 1;
+//        for(int i = 0; i<palavra.length (); i++){
+//            codigo = 31 * codigo + palavra.charAt (i);
+//        }
+//        return codigo;
+//    }
 
-    private int calculaIndiceDaTabela(String palavra){
-        int codigoDeEspalhamento = this.calculaCodigoDeEspalhamento (palavra);
+    private int calculaIndiceDaTabela(T palavra){
+        int codigoDeEspalhamento = palavra.hashCode ();
         codigoDeEspalhamento = Math.abs (codigoDeEspalhamento);
         return codigoDeEspalhamento % this.tabela.size ();
     }
 
     public void imprimeTabela(){
-        for(List<String> lista: this.tabela){
+        for(List<T> lista: this.tabela){
             System.out.println ("[");
             for(int i = 0; i<lista.size (); i++){
                 System.out.println ("*");
@@ -88,14 +88,14 @@ public class ConjuntoEspalhamentoMelhorImpl implements ConjuntoEspalhamento {
 
 
     private void redimensionaTabela(int novaCapacidade){
-        List<String> palavras = this.pegaTodas ();
+        List<T> palavras = this.pegaTodas ();
         this.tabela.clear ();
 
         for(int i=0; i< novaCapacidade; i++){
-            this.tabela.add (new LinkedList<String> ());
+            this.tabela.add (new LinkedList<T> ());
         }
 
-        for(String palavra: palavras){
+        for(T palavra: palavras){
             this.adiciona (palavra);
         }
     }
