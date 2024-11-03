@@ -9,6 +9,7 @@ class UserNotificatorTest {
         UserType email = UserType.EMAIL;
         UserType call = UserType.CALL;
         UserType sms = UserType.EMAIL;
+        UserType NOVA_LINHA = UserType.EMAIL;
 
         UserNotificator notificator = new UserNotificator ();
 
