@@ -11,10 +11,10 @@ class UserNotificatorTest {
         UserType sms = UserType.EMAIL;
         UserType NOVA_LINHA_3 = UserType.EMAIL;
 
-        UserNotificator notificator = new UserNotificator ();
+        UserNotificator notificator = new UserNotificator();
 
-        notificator.sendMessage (email, "Para minha querida...");
-        notificator.sendMessage (call, "Para minha querida...");
-        notificator.sendMessage (sms, "Para minha querida...");
+        notificator.sendMessage(email, "Para minha querida...");
+        notificator.sendMessage(call, "Para minha querida...");
+        notificator.sendMessage(sms, "Para minha querida...");
     }
 }
