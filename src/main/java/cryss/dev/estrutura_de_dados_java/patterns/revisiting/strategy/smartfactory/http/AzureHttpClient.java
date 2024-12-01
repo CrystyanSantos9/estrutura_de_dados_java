@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.util.List;
 
-@FeignClient(value = "leveClient", url = "http://localhost:3000/", configuration = ClientConfiguration.class )
+@FeignClient(value = "hardClient", url = "http://localhost:3000/", configuration = ClientConfiguration.class )
 public interface AzureHttpClient {
     @RequestMapping(method = RequestMethod.GET, value = "/azure")
     List<String> getBrandsTypeLeve();
