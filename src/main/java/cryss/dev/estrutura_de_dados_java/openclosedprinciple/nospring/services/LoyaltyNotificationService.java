@@ -12,6 +12,7 @@ import java.util.List;
 @Log4j2
 @Service
 public class LoyaltyNotificationService {
+
     private final List<LoyaltyNotifier> notifiers;
 
 
@@ -22,7 +23,7 @@ public class LoyaltyNotificationService {
                 .orElseThrow (() -> new IllegalStateException ("Tipo de fidelidade não disponível" + loyaltyType));
 
 
-        log.info ("Stix response: {}",  sender.sendNotification ());
+        log.info ("Client response: {}",  sender.sendNotification ());
     }
 
 }

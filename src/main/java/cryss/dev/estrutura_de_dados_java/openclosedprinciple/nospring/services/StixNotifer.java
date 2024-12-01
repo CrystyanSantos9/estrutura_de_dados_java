@@ -2,7 +2,7 @@ package cryss.dev.estrutura_de_dados_java.openclosedprinciple.nospring.services;
 
 import cryss.dev.estrutura_de_dados_java.openclosedprinciple.nospring.domain.LoyaltyNotifier;
 import cryss.dev.estrutura_de_dados_java.openclosedprinciple.nospring.domain.LoyaltyType;
-import cryss.dev.estrutura_de_dados_java.openclosedprinciple.nospring.http.STIXClient;
+import cryss.dev.estrutura_de_dados_java.openclosedprinciple.nospring.http.StixClient;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 public class StixNotifer implements LoyaltyNotifier {
 
 
-    private final STIXClient client;
+    private final StixClient client;
 
 
     @Override

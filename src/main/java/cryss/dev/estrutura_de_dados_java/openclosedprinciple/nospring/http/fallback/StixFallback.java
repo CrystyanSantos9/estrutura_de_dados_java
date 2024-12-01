@@ -1,11 +1,11 @@
 package cryss.dev.estrutura_de_dados_java.openclosedprinciple.nospring.http.fallback;
 
-import cryss.dev.estrutura_de_dados_java.openclosedprinciple.nospring.http.STIXClient;
+import cryss.dev.estrutura_de_dados_java.openclosedprinciple.nospring.http.StixClient;
 import feign.RetryableException;
 import org.springframework.stereotype.Component;
 
 @Component
-public class StixFallback implements STIXClient {
+public class StixFallback implements StixClient {
     @Override
     public String getDetails() {
         try{

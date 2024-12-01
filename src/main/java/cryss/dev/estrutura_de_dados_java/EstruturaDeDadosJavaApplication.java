@@ -7,10 +7,13 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.openfeign.EnableFeignClients;
+import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.scheduling.annotation.Scheduled;
 
 @SpringBootApplication
 @EnableFeignClients
 @RequiredArgsConstructor
+@EnableScheduling
 public class EstruturaDeDadosJavaApplication implements CommandLineRunner {
 
 	private final LoyaltyNotificationService service;
@@ -22,7 +25,15 @@ public class EstruturaDeDadosJavaApplication implements CommandLineRunner {
 
 
 	@Override
+//	@Scheduled(fixedDelay = 1L) WRONG
 	public void run(String... args) throws Exception {
+//		service.sendNotification (LoyaltyType.STIX);
+//		service.sendNotification (LoyaltyType.LIVELO);
+	}
+
+	@Scheduled(fixedDelay = 3L)
+	public void makeCall(){
 		service.sendNotification (LoyaltyType.STIX);
+		service.sendNotification (LoyaltyType.LIVELO);
 	}
 }
