@@ -5,7 +5,8 @@ import org.apache.http.entity.ContentType;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-
+//Preciso do configuration e do application properties configurado
+@Configuration
 public class LoyaltyClientInterceptor {
     @Bean
     public RequestInterceptor requestInterceptor() {

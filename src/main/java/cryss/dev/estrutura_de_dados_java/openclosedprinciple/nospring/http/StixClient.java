@@ -5,7 +5,6 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @FeignClient(value = "stix", url = "http://localhost:3000/", configuration = ClientsConfiguration.class, fallbackFactory =  StixFallbackFactory.class)
-
 public interface StixClient {
 //    @Cacheable(cacheNames = "demo-cache")
     @GetMapping(value = "/stix")
