@@ -14,7 +14,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import java.io.BufferedReader;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.net.URISyntaxException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Arrays;
+import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -73,16 +81,54 @@ class CustomerServiceTest {
         //Given
         var dto = CustomerDTO
                 .builder ()
+                .id (2L)
                 .name ("joaleson")
                 .phone99 ("1111")
                 .build ();
         //When
-     service.updateCustomerMapperApproach (dto);
+        service.updateCustomerMapperApproach (dto);
 
         //Then
         var c = repository.findById (2l).orElse (new CustomerEntity ());
+        System.out.println (c);
         assertEquals (c.name,"joaleson" );
         assertEquals (c.phone,"123" );
     }
 
+    @Test
+    void threads() throws IOException, URISyntaxException {
+        String file = "src/test/resources/ParaTestarThread.txt";
+        Path path = Paths.get(file);
+        BufferedReader reader = Files.newBufferedReader(path);
+        String data = reader.lines ().collect(Collectors.joining("\n"));
+
+        String str = "hello";
+        FileOutputStream writer = new FileOutputStream (file);
+        byte[] strToBytes = str.getBytes();
+
+
+
+        Thread t1 = new Thread (()->{
+            System.out.println (data);
+            try {
+                writer.write(strToBytes);
+                writer.close ();
+            } catch (IOException e) {
+                throw new RuntimeException (e);
+            }
+        });
+
+        Thread t2 = new Thread (()->{
+            System.out.println (data);
+        });
+
+        t1.start ();
+        t2.start ();
+
+
+        reader.close ();
+
+    }
+
 }
+
