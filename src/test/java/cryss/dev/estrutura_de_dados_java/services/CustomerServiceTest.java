@@ -54,6 +54,7 @@ class CustomerServiceTest {
                 .builder()
                 .name ("caio")
                 .phone ("123")
+                .phone99 ("1111")
                 .build();
 
 
@@ -83,7 +84,8 @@ class CustomerServiceTest {
                 .builder ()
                 .id (2L)
                 .name ("joaleson")
-                .phone99 ("1111")
+                .phone (null)
+                .phone99 ("9999")
                 .build ();
         //When
         service.updateCustomerMapperApproach (dto);

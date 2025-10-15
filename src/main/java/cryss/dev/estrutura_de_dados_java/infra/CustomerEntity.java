@@ -6,12 +6,14 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@Data
 public class CustomerEntity {
 
     @Id
@@ -19,4 +21,5 @@ public class CustomerEntity {
     public Long id;
     public String name;
     public String phone;
+    public String phone99;
 }
