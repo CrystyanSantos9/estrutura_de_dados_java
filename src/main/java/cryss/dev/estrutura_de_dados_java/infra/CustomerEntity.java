@@ -9,12 +9,14 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
+
 @Entity
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class CustomerEntity {
+public class CustomerEntity implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
