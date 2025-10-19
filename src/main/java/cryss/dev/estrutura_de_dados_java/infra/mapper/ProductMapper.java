@@ -17,7 +17,7 @@ public interface ProductMapper {
 
     @BeanMapping(nullValuePropertyMappingStrategy =
             NullValuePropertyMappingStrategy.IGNORE)
-    @Mapping (source = "phone99", target = "phone99", ignore = true)
+    @Mapping (target = "phone99", source = "phone99", ignore = true)
     void updateCustomerFromDto(CustomerDTO dto, @MappingTarget CustomerEntity entity);
 
 }
