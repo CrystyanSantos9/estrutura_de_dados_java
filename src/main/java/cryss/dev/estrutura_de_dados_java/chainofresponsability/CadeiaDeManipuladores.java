@@ -1,7 +1,7 @@
 package cryss.dev.estrutura_de_dados_java.chainofresponsability;
 
 //aqui eu crio a estrutura que cria a cadeia
-public abstract class CadeiaDeManipuladores implements ManipuladorVulgoHandler{
+public abstract class CadeiaDeManipuladores implements ManipuladorVulgoHandler {
 
     protected ManipuladorVulgoHandler proximoManipulador;
 
