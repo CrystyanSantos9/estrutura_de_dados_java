@@ -90,7 +90,7 @@
 							<artifactId>lombok</artifactId>
 						</exclude>
 					</excludes>
-					<mainClass>org.springframework.boot.autoconfigure.SpringBootApplication</mainClass>
+					<mainClass>cryss.dev.estrutura_de_dados_java.EstruturaDeDadosJavaApplication</mainClass>
 				</configuration>
 			</plugin>
 			<plugin>

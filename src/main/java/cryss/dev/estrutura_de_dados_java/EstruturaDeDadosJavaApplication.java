@@ -9,8 +9,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 //@SpringBootApplication(scanBasePackages = "cryss.dev.estrutura_de_dados_java" )
 public class EstruturaDeDadosJavaApplication implements CommandLineRunner {
 
-	@Autowired
-	private ServiceComMDCInicializadoNoThreadLocal serviceComMDCInicializadoNoThreadLocal;;
+//	@Autowired
+//	private ServiceComMDCInicializadoNoThreadLocal serviceComMDCInicializadoNoThreadLocal;;
 
 	public static void main(String[] args) {
 		SpringApplication.run(EstruturaDeDadosJavaApplication.class, args);
@@ -19,6 +19,6 @@ public class EstruturaDeDadosJavaApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		serviceComMDCInicializadoNoThreadLocal.processRequest ();
+//		serviceComMDCInicializadoNoThreadLocal.processRequest ();
 	}
 }
